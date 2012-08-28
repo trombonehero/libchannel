@@ -44,7 +44,7 @@ channel_create(int flags)
 }
 
 bool
-channel_isvalid(struct channel *c)
+channel_isvalid(channel *c)
 {
 	if (c == NULL) return false;
 	if (c->get_descriptor == NULL) return false;
@@ -63,14 +63,14 @@ channel_destroy(channel *c)
 }
 
 int
-channel_flags(struct channel *c)
+channel_flags(channel *c)
 {
 	if (!channel_isvalid(c)) return -1;
 	return c->flags;
 }
 
 int
-channel_descriptor(struct channel *c)
+channel_descriptor(channel *c)
 {
 	if (!channel_isvalid(c)) return -1;
 	return c->get_descriptor(c);

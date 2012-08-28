@@ -58,7 +58,7 @@ typedef struct uds_channel {
 uds_channel*        uds_create(int flags);
 channel*            uds_wrap(uds_channel*);
 uds_channel*        uds_unwrap(channel*);
-int                 uds_descriptor(struct channel*);
+int                 uds_descriptor(channel*);
 
 #endif	/* !_LIBCHANNEL_INTERNAL_H_ */
 

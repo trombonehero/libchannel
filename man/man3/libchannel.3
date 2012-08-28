@@ -1,8 +1,11 @@
-.TH "foo" 3 "Tue Aug 28 2012" "libchannel" \" -*- nroff -*-
+.TH "libchannel" 3 "Tue Aug 28 2012" "libchannel" \" -*- nroff -*-
 .ad l
 .nh
 .SH NAME
-foo \- 
+libchannel \- 
+.PP
+libchannel provides an abstraction around communication channels like sockets\&.  
+
 .SS "Data Structures"
 
 .in +1c
@@ -37,7 +40,9 @@ foo \-
 .in -1c
 .SH "Detailed Description"
 .PP 
+libchannel provides an abstraction around communication channels like sockets\&. 
 
+This allows a message-passing style of interaction, whether the backend is a socket or a function call in the same address space\&. 
 .SH "Function Documentation"
 .PP 
 .SS "struct \fBchannel\fP* channel_create (intflags)\fC [read]\fP"

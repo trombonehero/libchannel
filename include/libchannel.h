@@ -38,7 +38,7 @@
 __BEGIN_DECLS
 
 /**
- * \addtogroup default libchannel
+ * \addtogroup libchannel libchannel
  *
  * libchannel provides an abstraction around communication channels like
  * sockets.

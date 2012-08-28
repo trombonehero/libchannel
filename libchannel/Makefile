@@ -1,7 +1,7 @@
 LIB=	channel
 
 INCDIR=	${.CURDIR}/../include
-MANDIR=	${.CURDIR}/../man
+MANDIR=	${.CURDIR}/../man/man3
 
 INCS=	${INCDIR}/libchannel.h
 SRCS=	\
@@ -13,7 +13,8 @@ CFLAGS+=	-Wall -I ${.CURDIR} -I ${INCDIR}
 
 SHLIB_MAJOR=	1
 
-MAN=	${MANDIR}/libchannel.3
+MAN=	${MANDIR}/channel.3 ${MANDIR}/libchannel.3
+
 MLINKS=	\
 	libchannel.3	channel_create.3        \
 	libchannel.3	channel_isvalid.3       \

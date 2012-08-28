@@ -1,3 +1,4 @@
+/** @file ctest.h  A tiny framework for C unit tests. */
 /*-
  * Copyright (c) 2011 Jonathan Anderson
  * All rights reserved.
@@ -128,7 +129,7 @@
 		    _rights, (cap_rights_t) (rights));			\
 } while (0)
 
-/*
+/**
  * A top-level test should take no arguments and return an integer value,
  * either PASSED or FAILED.
  *
@@ -136,7 +137,7 @@
  */
 typedef int	(*test_function)(void);
 
-/* Information about a test. */
+/** Information about a test. */
 struct test {
 	char		*t_name;
 	test_function	 t_run;

@@ -1,0 +1,54 @@
+.TH "libchannel.c" 3 "Tue Aug 28 2012" "libchannel" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+libchannel.c \- 
+.PP
+Implementation of platform-portable parts\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+\fC#include 'libchannel\&.h'\fP
+.br
+\fC#include 'libchannel-internal\&.h'\fP
+.br
+\fC#include <assert\&.h>\fP
+.br
+\fC#include <stdlib\&.h>\fP
+.br
+
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBchannel\fP * \fBchannel_create\fP (int flags)"
+.br
+.RI "\fICreate a \fBchannel\fP with certain properties\&. \fP"
+.ti -1c
+.RI "bool \fBchannel_isvalid\fP (\fBchannel\fP *c)"
+.br
+.RI "\fITests the validity of a pointer that claims to be a \fBchannel\fP\&. \fP"
+.ti -1c
+.RI "void \fBchannel_destroy\fP (\fBchannel\fP *c)"
+.br
+.RI "\fIFree a \fBchannel\fP\&. \fP"
+.ti -1c
+.RI "int \fBchannel_flags\fP (\fBchannel\fP *c)"
+.br
+.RI "\fIGet a channel's flags\&. \fP"
+.ti -1c
+.RI "int \fBchannel_descriptor\fP (\fBchannel\fP *c)"
+.br
+.RI "\fIA file descriptor representation of a channel\&. \fP"
+.in -1c
+.SH "Detailed Description"
+.PP 
+Implementation of platform-portable parts\&. 
+
+
+.PP
+Definition in file \fBlibchannel\&.c\fP\&.
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for libchannel from the source code\&.

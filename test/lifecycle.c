@@ -1,3 +1,4 @@
+/** @file lifecycle.c  Tests of channel birth and death. */
 /*-
  * Copyright (c) 2012 Jonathan Anderson
  * All rights reserved.

@@ -1,0 +1,50 @@
+.TH "libchannel.h" 3 "Tue Aug 28 2012" "libchannel" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+libchannel.h \- 
+.PP
+Public API for libchannel\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+\fC#include <sys/cdefs\&.h>\fP
+.br
+\fC#include <stdbool\&.h>\fP
+.br
+
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "struct \fBchannel\fP * \fBchannel_create\fP (int flags)"
+.br
+.RI "\fICreate a \fBchannel\fP with certain properties\&. \fP"
+.ti -1c
+.RI "bool \fBchannel_isvalid\fP (struct \fBchannel\fP *)"
+.br
+.RI "\fITests the validity of a pointer that claims to be a \fBchannel\fP\&. \fP"
+.ti -1c
+.RI "void \fBchannel_destroy\fP (struct \fBchannel\fP *c)"
+.br
+.RI "\fIFree a \fBchannel\fP\&. \fP"
+.ti -1c
+.RI "int \fBchannel_flags\fP (struct \fBchannel\fP *)"
+.br
+.RI "\fIGet a channel's flags\&. \fP"
+.ti -1c
+.RI "int \fBchannel_descriptor\fP (struct \fBchannel\fP *)"
+.br
+.RI "\fIA file descriptor representation of a channel\&. \fP"
+.in -1c
+.SH "Detailed Description"
+.PP 
+Public API for libchannel\&. 
+
+
+.PP
+Definition in file \fBlibchannel\&.h\fP\&.
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for libchannel from the source code\&.

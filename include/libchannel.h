@@ -1,3 +1,4 @@
+/** @file libchannel.h  Public API for libchannel. */
 /*-
  * Copyright (c) 2012 Jonathan Anderson
  * All rights reserved.
@@ -37,6 +38,20 @@
 __BEGIN_DECLS
 
 /**
+ * \addtogroup default libchannel
+ *
+ * libchannel provides an abstraction around communication channels like
+ * sockets.
+ *
+ * This allows a message-passing style of interaction, whether the backend is
+ * a socket or a function call in the same address space.
+ *
+ * @{
+ */
+
+/**
+ * @struct channel
+ *
  * A communications channel for sending data and capabilities (eg file
  * descriptors and channels).
  *
@@ -51,15 +66,22 @@ struct channel;
 #define	CHANNEL_INORDER      0x0002	// in-order delivery
 
 /**
- * Create a channel with certain properties.
+ * Create a @ref channel with certain properties.
  *
- * @arg  flags   any of a number of flags OR'ed together:
- *               CHANNEL_RELIABLE   guarantee reliable delivery of messages
- *               CHANNEL_INORDER    guarantee in-order delivery of messages
+ * @param  flags   any of a number of flags OR'ed together:
+ *                  - CHANNEL_RELIABLE:  guarantee reliable delivery
+ *                  - CHANNEL_INORDER:   guarantee in-order delivery
  */
 struct channel*     channel_create(int flags);
+
+/** Tests the validity of a pointer that claims to be a @ref channel. */
 bool                channel_isvalid(struct channel*);
-void                channel_destroy(struct channel*);
+
+/**
+ * Free a @ref channel.
+ * @param c    must be a channel or NULL
+ */
+void                channel_destroy(struct channel *c);
 
 /**
  * Get a channel's flags.
@@ -76,6 +98,8 @@ int                 channel_flags(struct channel*);
  * This descriptor can be polled, selected, etc.
  */
 int                 channel_descriptor(struct channel*);
+
+/** @} */
 
 __END_DECLS
 

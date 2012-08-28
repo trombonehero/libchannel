@@ -1,3 +1,4 @@
+/** @file libchannel-internal.h  Internal definitions for libchannel. */
 /*-
  * Copyright (c) 2012 Jonathan Anderson
  * All rights reserved.
@@ -46,7 +47,7 @@ typedef struct channel {
  * Several channel implementations follow.
  */
 
-/** A channel implementation that wraps a UNIX domain socket. */
+/** @internal UNIX domain socket implementation of a channel. */
 typedef struct uds_channel {
 	channel     super;
 	int         socket;

@@ -69,15 +69,15 @@
 		    __func__, __LINE__, #condition);			\
 } while (0)
 
-/* Make sure that a system call's return value is >= 0. */
-#define	CHECK_SYSCALL_SUCCEEDS(syscall, ...) do {			\
+/* Make sure that a call's return value is >= 0. */
+#define	CHECK_SUCCESS(syscall, ...) do {			\
 	if (syscall(__VA_ARGS__) < 0)					\
 		FAIL("%s() at line %d: %s failed",			\
 		    __func__, __LINE__, #syscall);			\
 } while (0)
 
-/* Make sure that a system call fails with the correct errno. */
-#define	CHECK_SYSCALL_FAILS(expected_errno, syscall, ...)	do {	\
+/* Make sure that a call fails with the correct errno. */
+#define	CHECK_FAILURE(expected_errno, syscall, ...)	do {	\
 	if (syscall(__VA_ARGS__) < 0) {					\
 		if (errno != expected_errno)				\
 			FAIL("%s() at line %d: %s",			\
@@ -88,8 +88,8 @@
 	}								\
 } while (0)
 
-/* Make sure that a system call fails, but not with a particular errno. */
-#define	CHECK_SYSCALL_FAILS_BUT_NOT_WITH(bad_errno, syscall, ...)	do { \
+/* Make sure that a call fails, but not with a particular errno. */
+#define	CHECK_FAIL_BUT_NOT_WITH(bad_errno, syscall, ...)	do { \
 	if (syscall(__VA_ARGS__) < 0) {					\
 		if (errno == bad_errno)					\
 			FAIL("%s() at line %d: %s",			\
@@ -98,35 +98,6 @@
 		FAILX("%s() at line %d: %s succeeded; it should've failed", \
 		    __func__, __LINE__, #syscall);			\
 	}								\
-} while (0)
-
-/* A system call should fail with ECAPMODE. */
-#define	CHECK_CAPMODE(...) \
-	CHECK_SYSCALL_FAILS(ECAPMODE, __VA_ARGS__)
-
-/* A system call should fail, but not with ECAPMODE. */
-#define	CHECK_NOT_CAPMODE(...) \
-	CHECK_SYSCALL_FAILS_BUT_NOT_WITH(ECAPMODE, __VA_ARGS__)
-
-/* A system call should fail with ENOTCAPABLE. */
-#define	CHECK_NOTCAPABLE(...) \
-	CHECK_SYSCALL_FAILS(ENOTCAPABLE, __VA_ARGS__)
-
-/* Ensure that 'rights' are a subset of 'max'. */
-#define	CHECK_RIGHTS(rights, max)	do {				\
-	if ((success == PASSED) && (rights != max))			\
-		FAILX("Rights of opened file (%jx) > maximum (%jx)",	\
-		    (cap_rights_t) rights, (cap_rights_t) max);		\
-} while (0)
-
-/* Create a capability from a file descriptor, make sure it succeeds. */
-#define	MAKE_CAPABILITY(to, from, rights)	do {			\
-	cap_rights_t _rights;						\
-	REQUIRE(to = cap_new(from, rights));				\
-	CHECK_SYSCALL_SUCCEEDS(cap_getrights, to, &_rights);		\
-	if ((success == PASSED) && (_rights != (rights)))		\
-		FAILX("New capability's rights (%jx) != %jx",		\
-		    _rights, (cap_rights_t) (rights));			\
 } while (0)
 
 /**

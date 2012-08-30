@@ -2,9 +2,6 @@
 
 #include <assert.h>
 #include <fcntl.h>
-#include <stdio.h> // TODO: tmp
-
-#include <sys/mman.h> // TODO: tmp
 
 #include "tests.h"
 

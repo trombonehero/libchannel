@@ -52,6 +52,7 @@ __BEGIN_DECLS
 /*!
  * @struct channel
  *
+ * [opaque]
  * A communications channel for sending data and capabilities (eg file
  * descriptors and channels).
  *

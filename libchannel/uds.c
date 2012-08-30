@@ -1,4 +1,4 @@
-/** @file uds.c  UNIX domain socket implementation. */
+/*! @file uds.c  UNIX domain socket implementation. */
 /*-
  * Copyright (c) 2012 Jonathan Anderson
  * All rights reserved.

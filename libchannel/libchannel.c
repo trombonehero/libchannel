@@ -1,4 +1,4 @@
-/** @file libchannel.c  Implementation of platform-portable parts. */
+/*! @file libchannel.c  Implementation of platform-portable parts. */
 /*-
  * Copyright (c) 2012 Jonathan Anderson
  * All rights reserved.

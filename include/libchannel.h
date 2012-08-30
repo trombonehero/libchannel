@@ -1,4 +1,4 @@
-/** @file libchannel.h  Public API for libchannel. */
+/*! @file libchannel.h  Public API for libchannel. */
 /*-
  * Copyright (c) 2012 Jonathan Anderson
  * All rights reserved.
@@ -37,7 +37,7 @@
 
 __BEGIN_DECLS
 
-/**
+/*!
  * \addtogroup libchannel libchannel
  *
  * libchannel provides an abstraction around communication channels like
@@ -49,7 +49,7 @@ __BEGIN_DECLS
  * @{
  */
 
-/**
+/*!
  * @struct channel
  *
  * A communications channel for sending data and capabilities (eg file
@@ -65,7 +65,7 @@ struct channel;
 #define	CHANNEL_RELIABLE     0x0001	// reliable delivery
 #define	CHANNEL_INORDER      0x0002	// in-order delivery
 
-/**
+/*!
  * Create a @ref channel with certain properties.
  *
  * @param  flags   any of a number of flags OR'ed together:
@@ -74,16 +74,16 @@ struct channel;
  */
 struct channel*     channel_create(int flags);
 
-/** Tests the validity of a pointer that claims to be a @ref channel. */
+//! Tests the validity of a pointer that claims to be a @ref channel.
 bool                channel_isvalid(struct channel*);
 
-/**
+/*!
  * Free a @ref channel.
  * @param c    must be a channel or NULL
  */
 void                channel_destroy(struct channel *c);
 
-/**
+/*!
  * Get a channel's flags.
  *
  * These flags cannot be changed after creation, but they can be retrieved.

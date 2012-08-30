@@ -6,10 +6,11 @@ MANDIR=	${.CURDIR}/../man/man3
 INCS=	${INCDIR}/libchannel.h
 SRCS=	\
 	libchannel.c      \
+	message.c         \
 	uds.c             \
 
 
-CFLAGS+=	-Wall -I ${.CURDIR} -I ${INCDIR}
+CFLAGS+=	-std=c99 -Wall -I ${.CURDIR} -I ${INCDIR}
 
 SHLIB_MAJOR=	1
 

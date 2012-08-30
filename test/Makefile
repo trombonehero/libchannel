@@ -3,8 +3,8 @@ INTERNALPROG=	yes
 SRCS=	\
 	ctest.c \
 	main.c \
-	fd.c \
 	lifecycle.c \
+	message.c \
 	sendrecv.c \
 
 NO_MAN=

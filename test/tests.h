@@ -36,5 +36,11 @@
 /** Tests creation, destruction and validity checks in between. */
 int     test_lifecycle(void);
 
+/** Tests creating a data-only message. */
+int     test_message_data(void);
+
+/** Tests creating a message with data, descriptors and channels. */
+int     test_message_complex(void);
+
 #endif	/* _LIBCHANNEL_TESTS_H */
 

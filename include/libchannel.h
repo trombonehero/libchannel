@@ -33,12 +33,16 @@
 #define	_LIBCHANNEL_H_
 
 #include <sys/cdefs.h>
+
 #include <stdbool.h>
+#include <stddef.h>
+
+#include "libchannel-message.h"
 
 __BEGIN_DECLS
 
 /*!
- * \addtogroup libchannel libchannel
+ * \addtogroup channels
  *
  * libchannel provides an abstraction around communication channels like
  * sockets.
@@ -61,7 +65,6 @@ __BEGIN_DECLS
  * more efficient message-passing primitive.
  */
 struct channel;
-
 
 #define	CHANNEL_RELIABLE     0x0001	// reliable delivery
 #define	CHANNEL_INORDER      0x0002	// in-order delivery
@@ -93,12 +96,7 @@ void                channel_destroy(struct channel *c);
  */
 int                 channel_flags(struct channel*);
 
-/**
- * A file descriptor representation of a channel.
- *
- * This descriptor can be polled, selected, etc.
- */
-int                 channel_descriptor(struct channel*);
+
 
 /** @} */
 

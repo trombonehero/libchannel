@@ -9,7 +9,9 @@
 #include "tests.h"
 
 struct test all_tests[] = {
-	TEST(lifecycle)
+	TEST(lifecycle),
+	TEST(message_data),
+	TEST(message_complex),
 };
 int test_count = sizeof(all_tests) / sizeof(struct test);
 

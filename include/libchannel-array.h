@@ -1,4 +1,4 @@
-/** @file libchannel-internal.h  Internal definitions for libchannel. */
+/*! @file libchannel-array.h  Something like bounded type-safe arrays in C. */
 /*-
  * Copyright (c) 2012 Jonathan Anderson
  * All rights reserved.
@@ -29,54 +29,49 @@
  * SUCH DAMAGE.
  */
 
-#ifndef	_LIBCHANNEL_INTERNAL_H_
-#define	_LIBCHANNEL_INTERNAL_H_
+#ifndef	_LIBCHANNEL_ARRAY_H_
+#define	_LIBCHANNEL_ARRAY_H_
 
-#include "libchannel.h"
+#include <sys/cdefs.h>
 
-#include <stdbool.h>
+#include <stddef.h>
 
-typedef struct channel {
-	int     magic;
-	int     flags;
-	int     (*get_descriptor)(struct channel*);
-} channel;
+__BEGIN_DECLS
 
-/**
+/*!
+ * \addtogroup Arrays
+ * Something like type-safe bounded arrays in C.
+ * @{
+ */
+
+/*!
  * @internal
- * A message structure is immediately followed by the data it references;
- * they are allocated and freed together.
- *
- * The memory layout is:
- *   struct message
- *   char      data[data.len]
- *   int       descriptors[descriptors.len]
- *   channel   channels[channels.len]
+ * @brief Base implementation of @ref DEFINE_ARRAY and @ref DEFINE_STRUCT_ARRAY.
  */
-typedef struct message {
-	size_t         total_len; //!< @internal @brief len(struct + referenced data)
-	array(char)    data;
-	array(int)     descriptors;
-	array(channel) channels;
-} message;
+#define	DEFINE_ARRAY_BASE(tag, type)                                          \
+	struct array_of_##tag { type *data; size_t len; };                    \
+	inline array(tag) tag##_array(type *data, size_t len) {               \
+		array(tag) tmp = { data, len };                               \
+		return tmp;                                                   \
+	}
 
+//! Define struct array_of_[type] and function [type]_array(data, num).
+#define	DEFINE_ARRAY(type)           DEFINE_ARRAY_BASE(type, type)
 
-/*
- * Several channel implementations follow.
- */
+//! @ref DEFINE_ARRAY for structures.
+#define	DEFINE_STRUCT_ARRAY(type)    DEFINE_ARRAY_BASE(type, struct type)
 
-/** @internal UNIX domain socket implementation of a channel. */
-typedef struct uds_channel {
-	channel     super;
-	int         socket;
-} uds_channel;
+#define	array(type)          struct array_of_##type
 
-#define UDS_MAGIC   0xBCAEAB67
+DEFINE_ARRAY(char);
+DEFINE_ARRAY(int);
+DEFINE_ARRAY(unsigned);
+DEFINE_ARRAY(float);
+DEFINE_ARRAY(double);
 
-uds_channel*        uds_create(int flags);
-channel*            uds_wrap(uds_channel*);
-uds_channel*        uds_unwrap(channel*);
-int                 uds_descriptor(channel*);
+/** @} */
 
-#endif	/* !_LIBCHANNEL_INTERNAL_H_ */
+__END_DECLS
+
+#endif	/* !_LIBCHANNEL_ARRAY_H_ */
 

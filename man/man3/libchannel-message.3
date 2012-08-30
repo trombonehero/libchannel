@@ -1,0 +1,196 @@
+.TH "libchannel-message" 3 "Sat Sep 1 2012" "libchannel" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+libchannel-message \- 
+.PP
+Abstractions around packet-oriented messages with data, file descriptors and channels\&.  
+
+.SS "Data Structures"
+
+.in +1c
+.ti -1c
+.RI "struct \fBmessage\fP"
+.br
+.RI "\fI[opaque] A message that can be sent over a \fBchannel\fP\&. \fP"
+.in -1c
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "bool \fBmessage_append_data\fP (struct \fBmessage\fP **m, \fBarray\fP(char))"
+.br
+.RI "\fIAppend [more] raw data to an existing message\&. \fP"
+.ti -1c
+.RI "bool \fBmessage_append_descriptors\fP (struct \fBmessage\fP **m, \fBarray\fP(int))"
+.br
+.RI "\fIAppend [more] descriptors to an existing message\&. \fP"
+.ti -1c
+.RI "bool \fBmessage_append_channels\fP (struct \fBmessage\fP **m, \fBarray\fP(channelptr))"
+.br
+.RI "\fIAppend [more] raw data to an existing message\&. \fP"
+.ti -1c
+.RI "struct \fBmessage\fP * \fBmessage_raw_data\fP (char *data, size_t len)"
+.br
+.RI "\fIBuild a message that only contains raw data\&. This copies the data\&. \fP"
+.ti -1c
+.RI "\fBarray\fP (char) message_get_data(struct \fBmessage\fP *)"
+.br
+.RI "\fIObtain a reference to the raw data contained in a message\&. \fP"
+.ti -1c
+.RI "\fBarray\fP (int) message_get_descriptors(struct \fBmessage\fP *)"
+.br
+.RI "\fIObtain a reference to any descriptors contained in a message\&. \fP"
+.ti -1c
+.RI "size_t \fBmessage_get_channels\fP (struct \fBmessage\fP *)"
+.br
+.RI "\fIHow many channels does this message hold? \fP"
+.ti -1c
+.RI "struct \fBchannel\fP * \fBmessage_get_channel\fP (struct \fBmessage\fP *, size_t)"
+.br
+.RI "\fIRetrieve a particular channel from the message\&. \fP"
+.ti -1c
+.RI "void \fBmessage_free\fP (struct \fBmessage\fP *)"
+.br
+.RI "\fIFree a message, including any data it has copied\&. \fP"
+.in -1c
+.SH "Detailed Description"
+.PP 
+Abstractions around packet-oriented messages with data, file descriptors and channels\&. 
+
+
+.SH "Function Documentation"
+.PP 
+.SS "bool message_append_channels (struct \fBmessage\fP **m, \fBarray\fP(channelptr))"
+
+.PP
+Append [more] raw data to an existing message\&. \fBParameters:\fP
+.RS 4
+\fIm\fP the message to append to; will be re-allocated 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+success (true on success, false on failure) 
+.RE
+.PP
+
+.PP
+Definition at line 146 of file message\&.c\&.
+.PP
+References channel_isvalid(), channel_size(), and message_free()\&.
+.PP
+.nf
+{
+        assert(m != NULL);
+        assert(*m != NULL);
+        for (size_t i = 0; i < channels\&.len; i++)
+                assert(channel_isvalid(channels\&.data[i]));
+
+        message *old = *m;
+
+        // Calculate the total size required to store the channels\&.
+        // There is no universal sizeof(channel), so we must enumerate 'em all\&.
+        size_t channel_bytes = 0;
+
+        for (size_t i = 0; i < old->channels\&.len; i++)
+                channel_bytes += channel_size(old->channels\&.data + i);
+
+        for (size_t i = 0; i < channels\&.len; i++)
+                channel_bytes += channel_size(channels\&.data[i]);
+
+        message *enlarged = message_realloc(m,
+                old->data\&.len, old->descriptors\&.len, channel_bytes);
+        if (enlarged == NULL) return false;
+        *m = enlarged;
+
+        char *new_channels = (char*) enlarged->channels\&.data;
+        char *next = new_channels;
+
+        for (size_t i = 0; i < channels\&.len; i++) {
+                channel *src = channels\&.data[i];
+                int copied = channel_copy(next, src);
+                if (copied <= 0) {
+                        message_free(enlarged);
+                        return -1;
+                }
+                next += copied;
+                enlarged->channels\&.len++;
+        }
+
+        return true;
+}
+.fi
+.SS "bool message_append_data (struct \fBmessage\fP **m, \fBarray\fP(char))"
+
+.PP
+Append [more] raw data to an existing message\&. \fBParameters:\fP
+.RS 4
+\fIm\fP the message to append to; will be re-allocated 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+success (true on success, false on failure) 
+.RE
+.PP
+
+.PP
+Definition at line 108 of file message\&.c\&.
+.PP
+.nf
+{
+        assert(m != NULL);
+        assert(*m != NULL);
+
+        message old = **m;
+        message *enlarged = message_realloc(m,
+                old\&.data\&.len + data\&.len, old\&.descriptors\&.len, old\&.channels\&.len);
+        if (enlarged == NULL) return false;
+
+        assert(enlarged->data\&.len == old\&.data\&.len + data\&.len);
+
+        memcpy(enlarged->data\&.data + old\&.data\&.len, data\&.data, data\&.len);
+
+        return true;
+}
+.fi
+.SS "bool message_append_descriptors (struct \fBmessage\fP **m, \fBarray\fP(int))"
+
+.PP
+Append [more] descriptors to an existing message\&. \fBParameters:\fP
+.RS 4
+\fIm\fP the message to append to; will be re-allocated 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+success (true on success, false on failure) 
+.RE
+.PP
+
+.PP
+Definition at line 126 of file message\&.c\&.
+.PP
+.nf
+{
+        assert(mp != NULL);
+        assert(*mp != NULL);
+
+        message *m = *mp;
+        size_t oldcount = m->descriptors\&.len;
+
+        message *enlarged = message_realloc(mp,
+                m->data\&.len, m->descriptors\&.len + fds\&.len, m->channels\&.len);
+        if (enlarged == NULL) return false;
+
+        assert(enlarged->descriptors\&.len == oldcount + fds\&.len);
+        char *target = (char*) (enlarged->descriptors\&.data + oldcount);
+        memcpy(target, fds\&.data, fds\&.len * sizeof(int));
+
+        return true;
+}
+.fi
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for libchannel from the source code\&.

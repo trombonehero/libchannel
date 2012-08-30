@@ -25,8 +25,8 @@
  * SUCH DAMAGE.
  */
 
-#ifndef CTEST_H
-#define	CTEST_H
+#ifndef	_CTEST_H_
+#define	_CTEST_H_
 
 /*
  * This is an ad hoc, lightweight unit test framework for C that can live
@@ -136,4 +136,4 @@ int	execute(int id, struct test*);
  */
 int	run_all_tests(size_t count, struct test *tests, int argc, char *argv[]);
 
-#endif /* CAP_TEST_H */
+#endif /* _CTEST_H_ */

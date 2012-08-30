@@ -39,7 +39,7 @@
 __BEGIN_DECLS
 
 /*!
- * \addtogroup Arrays
+ * \addtogroup libchannel-array
  * Something like type-safe bounded arrays in C.
  * @{
  */

@@ -42,7 +42,7 @@
 __BEGIN_DECLS
 
 /*!
- * \addtogroup messages
+ * \addtogroup libchannel-message
  *
  * Abstractions around packet-oriented messages with data, file descriptors
  * and channels.

@@ -42,7 +42,7 @@
 __BEGIN_DECLS
 
 /*!
- * \addtogroup channels
+ * \addtogroup libchannel
  *
  * libchannel provides an abstraction around communication channels like
  * sockets.
@@ -102,5 +102,5 @@ int                 channel_flags(struct channel*);
 
 __END_DECLS
 
-#endif	/* !_LIBSANDBOX_H_ */
+#endif	/* !_LIBCHANNEL_H_ */
 

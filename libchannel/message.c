@@ -230,3 +230,56 @@ message_get_channel(struct message *m, size_t index)
 	return next;
 }
 
+#ifdef	DEBUG
+#include <stdio.h>
+
+void
+message_dump(message *m)
+{
+	printf("message { size %lu (0x%lx),\n", m->total_len, m->total_len);
+	printf("  data     { %4lu B : ", m->data.len);
+	for (size_t i = 0; i < m->data.len; i++) {
+		printf("%02x ", (int) (0xff & m->data.data[i]));
+	}
+	printf("}\n");
+
+	printf("  descrip  { %6lu : ", m->descriptors.len);
+	for (size_t i = 0; i < m->descriptors.len; i++) {
+		printf("%d ", m->descriptors.data[i]);
+	}
+	printf("}\n");
+
+	printf("  channels { %6lu : ", m->channels.len);
+	for (size_t i = 0; i < m->channels.len; i++)
+		printf("0x%lx ", (unsigned long) message_get_channel(m, i));
+	printf("}\n");
+
+	printf("}\n");
+
+	size_t total_size = m->total_len;
+	for (size_t row = 0; row < total_size; row += 8) {
+		for (int i = row; i < row + 8; i++) {
+			if (i >= total_size) printf("   ");
+			else printf(" %02x", 0xff & ((char*) m)[i]);
+		}
+
+		printf("        ");
+
+		for (int i = row; i < row + 8 && i < total_size; i++) {
+			char c = ((char*) m)[i];
+			if (((c >= 'A') && (c <= 'Z')) ||
+			    ((c >= 'a') && (c <= 'z')) ||
+			    (c == ',') || (c == ' ') || (c == '!') ||
+			    (c == '"') || (c == '\'')
+			   )
+				printf("%c", c);
+
+			else printf(".");
+		}
+
+		printf("\n");
+	}
+	printf("\n");
+}
+#endif	/* DEBUG */
+

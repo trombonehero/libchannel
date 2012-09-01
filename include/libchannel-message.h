@@ -64,6 +64,11 @@ DEFINE_ARRAY_BASE(channelptr, struct channel*);
  */
 struct message;
 
+#ifdef	DEBUG
+//! Dump a @ref message to stdout (for debug purposes)
+void                message_dump(struct message *m);
+#endif
+
 /*!
  * Append [more] raw data to an existing message.
  *

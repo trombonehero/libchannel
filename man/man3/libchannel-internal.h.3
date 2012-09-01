@@ -27,10 +27,6 @@ libchannel-internal.h \-
 
 .in +1c
 .ti -1c
-.RI "void \fBchannel_init\fP (\fBchannel\fP *, int magic, int(*size)(struct \fBchannel\fP *), int(*copy)(struct \fBchannel\fP *, void *dest), int(*send)(struct \fBchannel\fP *, struct \fBmessage\fP *))"
-.br
-.RI "\fIInitialize a channel\&. \fP"
-.ti -1c
 .RI "int \fBchannel_size\fP (\fBchannel\fP *)"
 .br
 .RI "\fIHow many bytes does a particular \fBchannel\fP take to store? \fP"

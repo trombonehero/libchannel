@@ -81,7 +81,8 @@ typedef struct message {
 
 
 /*!
- * Initialize a channel.
+ * @internal
+ * @brief Initialize a channel.
  *
  * @param           magic     implementation-specific magic value
  * @param           size      function: get total size of channel struct

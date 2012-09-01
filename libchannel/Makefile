@@ -10,7 +10,7 @@ SRCS=	\
 	uds.c             \
 
 
-CFLAGS+=	-std=c99 -Wall -I ${.CURDIR} -I ${INCDIR}
+CFLAGS+=	-std=c99 -Wall -Werror -I ${.CURDIR} -I ${INCDIR}
 
 SHLIB_MAJOR=	1
 

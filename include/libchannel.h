@@ -66,17 +66,16 @@ __BEGIN_DECLS
  */
 struct channel;
 
-#define	CHANNEL_RELIABLE     0x0001	// reliable delivery
-#define	CHANNEL_INORDER      0x0002	// in-order delivery
-
 /*!
- * Create a @ref channel with certain properties.
+ * Create a @ref channel that wraps a UNIX domain socket.
  *
- * @param  flags   any of a number of flags OR'ed together:
- *                  - CHANNEL_RELIABLE:  guarantee reliable delivery
- *                  - CHANNEL_INORDER:   guarantee in-order delivery
+ * @param  sock     A UNIX domain socket. This must be a UDS, rather than
+ *                  e.g. a TCP connection, at least until we figure out how to
+ *                  gracefully degrade when we can't send file descriptors and
+ *                  other channels.
+ * @return          NULL on error
  */
-struct channel*     channel_create(int flags);
+struct channel*     channel_wrap_socket(int sock);
 
 //! Tests the validity of a pointer that claims to be a @ref channel.
 bool                channel_isvalid(struct channel*);
@@ -87,16 +86,10 @@ bool                channel_isvalid(struct channel*);
  */
 void                channel_destroy(struct channel *c);
 
-/*!
- * Get a channel's flags.
- *
- * These flags cannot be changed after creation, but they can be retrieved.
- *
- * @return  -1 on error, OR'ed combination of flags otherwise
- */
-int                 channel_flags(struct channel*);
+//! Send data and/or capabilities over a channel.
+int                 channel_send(struct channel*, struct message*);
 
-
+// TODO: receiving things (integrated with application event model)...
 
 /** @} */
 

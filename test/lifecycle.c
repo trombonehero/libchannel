@@ -43,29 +43,12 @@ test_lifecycle()
 	// Non-channels should be recognized as such.
 	struct channel *garbage = NULL;
 	CHECK(!channel_isvalid(garbage));
-	CHECK(channel_flags(garbage) == -1);
 
 	int some_integer;
 	garbage = (struct channel*) &some_integer;
 	CHECK(!channel_isvalid(garbage));
 
-	// Make sure we can create, recognize and destroy channels.
-	int flags_to_test[] = {
-	   0,
-	   CHANNEL_RELIABLE,
-	   CHANNEL_INORDER,
-	   CHANNEL_RELIABLE | CHANNEL_INORDER
-	};
-
-	for (size_t i = 0; i < sizeof(flags_to_test) / sizeof(int); i++) {
-		int flags = flags_to_test[i];
-
-		struct channel *c = channel_create(flags);
-		CHECK(c != NULL);
-		CHECK(channel_isvalid(c));
-		CHECK(channel_flags(c) == flags);
-		channel_destroy(c);
-	}
+	// TODO: break into separate tests (UDS, etc.)
 
 	return success;
 }

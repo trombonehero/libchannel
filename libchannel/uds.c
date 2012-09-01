@@ -36,12 +36,26 @@
 #include <stdlib.h>
 
 
+static bool
+valid_uds(uds_channel *c)
+{
+	if (c == NULL) return false;
+	if (!channel_isvalid(&c->super)) return false;
+	if (c->super.magic != UDS_MAGIC) return false;
+	if (c->socket < 0) return false;
+
+	return true;
+}
+
 uds_channel*
-uds_create(int flags)
+uds_create(int sock)
 {
 	uds_channel *channel = malloc(sizeof(uds_channel));
-	channel->super.flags = flags;
-	channel->super.magic = UDS_MAGIC;
+	channel_init(&channel->super, UDS_MAGIC, uds_size, uds_copy, uds_send);
+
+	channel->socket = sock;
+
+	assert(valid_uds(channel));
 
 	return channel;
 }
@@ -49,14 +63,38 @@ uds_create(int flags)
 channel*
 uds_wrap(uds_channel *c)
 {
-	assert(c->super.magic == UDS_MAGIC);
+	assert(valid_uds(c));
 	return (channel*) c;
 }
 
 uds_channel*
 uds_unwrap(channel *c)
 {
-	assert(c->magic == UDS_MAGIC);
-	return (uds_channel*) c;
+	assert(channel_isvalid(c));
+	uds_channel *uds = (uds_channel*) c;
+	assert(valid_uds(uds));
+
+	return uds;
+}
+
+
+// channel implementation:
+
+int
+uds_size(__unused channel *c)
+{
+	return sizeof(uds_channel);
+}
+
+int
+uds_copy(channel *c, void *dest)
+{
+	return -1;
+}
+
+int
+uds_send(channel *c, message *m)
+{
+	return -1;
 }
 

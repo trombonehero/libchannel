@@ -1,4 +1,4 @@
-.TH "libchannel.c" 3 "Tue Aug 28 2012" "libchannel" \" -*- nroff -*-
+.TH "libchannel.c" 3 "Sat Sep 1 2012" "libchannel" \" -*- nroff -*-
 .ad l
 .nh
 .SH NAME
@@ -17,14 +17,20 @@ Implementation of platform-portable parts\&.
 .br
 \fC#include <stdlib\&.h>\fP
 .br
+\fC#include <string\&.h>\fP
+.br
 
 .SS "Functions"
 
 .in +1c
 .ti -1c
-.RI "\fBchannel\fP * \fBchannel_create\fP (int flags)"
+.RI "int \fBchannel_size\fP (\fBchannel\fP *c)"
 .br
-.RI "\fICreate a \fBchannel\fP with certain properties\&. \fP"
+.RI "\fIHow many bytes does a particular \fBchannel\fP take to store? \fP"
+.ti -1c
+.RI "\fBchannel\fP * \fBchannel_wrap_socket\fP (int sock)"
+.br
+.RI "\fICreate a \fBchannel\fP that wraps a UNIX domain socket\&. \fP"
 .ti -1c
 .RI "bool \fBchannel_isvalid\fP (\fBchannel\fP *c)"
 .br
@@ -34,13 +40,9 @@ Implementation of platform-portable parts\&.
 .br
 .RI "\fIFree a \fBchannel\fP\&. \fP"
 .ti -1c
-.RI "int \fBchannel_flags\fP (\fBchannel\fP *c)"
+.RI "int \fBchannel_send\fP (struct \fBchannel\fP *c, struct \fBmessage\fP *m)"
 .br
-.RI "\fIGet a channel's flags\&. \fP"
-.ti -1c
-.RI "int \fBchannel_descriptor\fP (\fBchannel\fP *c)"
-.br
-.RI "\fIA file descriptor representation of a channel\&. \fP"
+.RI "\fISend data and/or capabilities over a channel\&. \fP"
 .in -1c
 .SH "Detailed Description"
 .PP 

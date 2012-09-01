@@ -34,20 +34,60 @@
 
 #include <assert.h>
 #include <stdlib.h>
+#include <string.h>
 
+
+void
+channel_init(channel *c, int magic,
+             int (*size)(channel*),
+             int (*copy)(channel*, void *dest),
+             int (*send)(channel*, struct message*)
+            )
+{
+	assert(c != NULL);
+
+	c->magic = magic;
+
+	c->size = size;
+	c->copy = copy;
+	c->send = send;
+}
+
+int
+channel_size(channel *c)
+{
+	assert(channel_isvalid(c));
+
+	int size = c->size(c);
+	assert(size > 0);
+
+	return size;
+}
+
+int
+channel_copy(void *dest, channel *src)
+{
+	assert(channel_isvalid(src));
+
+	int size = channel_size(src);
+	memcpy(dest, src, size);
+
+	return size;
+}
 
 channel*
-channel_create(int flags)
+channel_wrap_socket(int sock)
 {
-	// TODO: choose among UDS, something else?
-	return uds_wrap(uds_create(flags));
+	return uds_wrap(uds_create(sock));
 }
 
 bool
 channel_isvalid(channel *c)
 {
 	if (c == NULL) return false;
-	if (c->get_descriptor == NULL) return false;
+	if (c->size == NULL) return false;
+	if (c->copy == NULL) return false;
+	if (c->send == NULL) return false;
 
 	// As we implement other kinds of channels, add more magic tests here.
 	if (c->magic == UDS_MAGIC) return true;
@@ -63,16 +103,9 @@ channel_destroy(channel *c)
 }
 
 int
-channel_flags(channel *c)
+channel_send(struct channel *c, struct message *m)
 {
 	if (!channel_isvalid(c)) return -1;
-	return c->flags;
-}
-
-int
-channel_descriptor(channel *c)
-{
-	if (!channel_isvalid(c)) return -1;
-	return c->get_descriptor(c);
+	return c->send(c, m);
 }
 

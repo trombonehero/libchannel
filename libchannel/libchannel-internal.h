@@ -49,9 +49,16 @@
  * (perhaps called 'super').
  */
 typedef struct channel {
-	int     flags;
-	int     (*get_descriptor)(struct channel*);
 	int     magic;       //!< @internal @brief implementation-specific
+
+	//! @internal @brief Size of implementation-specific struct (in B).
+	int     (*size)(struct channel*);
+
+	//! @internal @brief Copy the channel to a place in memory.
+	int     (*copy)(struct channel*, void *dest);
+
+	//! @internal @brief Send a message over the channel.
+	int     (*send)(struct channel*, struct message*);
 } channel;
 
 /**
@@ -73,6 +80,31 @@ typedef struct message {
 } message;
 
 
+/*!
+ * Initialize a channel.
+ *
+ * @param           magic     implementation-specific magic value
+ * @param           size      function: get total size of channel struct
+ * @param           copy      function: copy channel to somewhere in memory
+ * @param           send      function: send a message over the channel
+ *
+ * @return          0 on success, -1 on error
+ */
+void                channel_init(channel*, int magic,
+                                 int (*size)(struct channel*),
+                                 int (*copy)(struct channel*, void *dest),
+                                 int (*send)(struct channel*, struct message*)
+                                );
+
+//! How many bytes does a particular @ref channel take to store?
+int                 channel_size(channel*);
+
+/*!
+ * @internal        Copy a channel to somewhere in memory.
+ * @return          The number of bytes copied (-1 on error)
+ */
+int                 channel_copy(void *dest, channel *src);
+
 /*
  * Several channel implementations follow.
  */
@@ -85,10 +117,13 @@ typedef struct uds_channel {
 
 #define UDS_MAGIC   0xBCAEAB67
 
-uds_channel*        uds_create(int flags);
+uds_channel*        uds_create(int sock);
 channel*            uds_wrap(uds_channel*);
 uds_channel*        uds_unwrap(channel*);
 int                 uds_descriptor(channel*);
+int                 uds_size(channel*);
+int                 uds_copy(channel*, void*);
+int                 uds_send(channel*, message *);
 
 //! @}
 

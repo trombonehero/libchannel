@@ -1,4 +1,4 @@
-.TH "libchannel.h" 3 "Tue Aug 28 2012" "libchannel" \" -*- nroff -*-
+.TH "libchannel.h" 3 "Sat Sep 1 2012" "libchannel" \" -*- nroff -*-
 .ad l
 .nh
 .SH NAME
@@ -13,14 +13,18 @@ Public API for libchannel\&.
 .br
 \fC#include <stdbool\&.h>\fP
 .br
+\fC#include <stddef\&.h>\fP
+.br
+\fC#include 'libchannel-message\&.h'\fP
+.br
 
 .SS "Functions"
 
 .in +1c
 .ti -1c
-.RI "struct \fBchannel\fP * \fBchannel_create\fP (int flags)"
+.RI "struct \fBchannel\fP * \fBchannel_wrap_socket\fP (int sock)"
 .br
-.RI "\fICreate a \fBchannel\fP with certain properties\&. \fP"
+.RI "\fICreate a \fBchannel\fP that wraps a UNIX domain socket\&. \fP"
 .ti -1c
 .RI "bool \fBchannel_isvalid\fP (struct \fBchannel\fP *)"
 .br
@@ -30,13 +34,9 @@ Public API for libchannel\&.
 .br
 .RI "\fIFree a \fBchannel\fP\&. \fP"
 .ti -1c
-.RI "int \fBchannel_flags\fP (struct \fBchannel\fP *)"
+.RI "int \fBchannel_send\fP (struct \fBchannel\fP *, struct \fBmessage\fP *)"
 .br
-.RI "\fIGet a channel's flags\&. \fP"
-.ti -1c
-.RI "int \fBchannel_descriptor\fP (struct \fBchannel\fP *)"
-.br
-.RI "\fIA file descriptor representation of a channel\&. \fP"
+.RI "\fISend data and/or capabilities over a channel\&. \fP"
 .in -1c
 .SH "Detailed Description"
 .PP 

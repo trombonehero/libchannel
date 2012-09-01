@@ -1,10 +1,10 @@
-.TH "channel" 3 "Tue Aug 28 2012" "libchannel" \" -*- nroff -*-
+.TH "channel" 3 "Sat Sep 1 2012" "libchannel" \" -*- nroff -*-
 .ad l
 .nh
 .SH NAME
 channel \- 
 .PP
-A communications channel for sending data and capabilities (eg file descriptors and channels)\&.  
+[opaque] A communications channel for sending data and capabilities (eg file descriptors and channels)\&.  
 
 .SH SYNOPSIS
 .br
@@ -13,11 +13,11 @@ A communications channel for sending data and capabilities (eg file descriptors 
 \fC#include 'libchannel\&.h'\fP
 .SH "Detailed Description"
 .PP 
-A communications channel for sending data and capabilities (eg file descriptors and channels)\&. 
+[opaque] A communications channel for sending data and capabilities (eg file descriptors and channels)\&. 
 
 The implementation of a channel is platform-specific: on some platforms, it will be a wrapper around a UNIX domain socket\&. On others, it may be a more efficient message-passing primitive\&. 
 .PP
-Definition at line 39 of file libchannel-internal\&.h\&.
+Definition at line 51 of file libchannel-internal\&.h\&.
 
 .SH "Author"
 .PP 

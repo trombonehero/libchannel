@@ -1,8 +1,8 @@
-.TH "Libchannel" 3 "Thu Aug 30 2012" "libchannel" \" -*- nroff -*-
+.TH "libchannel" 3 "Sat Sep 1 2012" "libchannel" \" -*- nroff -*-
 .ad l
 .nh
 .SH NAME
-Libchannel \- 
+libchannel \- 
 .PP
 libchannel provides an abstraction around communication channels like sockets\&.  
 
@@ -13,6 +13,10 @@ libchannel provides an abstraction around communication channels like sockets\&.
 .RI "struct \fBchannel\fP"
 .br
 .RI "\fI[opaque] A communications channel for sending data and capabilities (eg file descriptors and channels)\&. \fP"
+.ti -1c
+.RI "struct \fBmessage\fP"
+.br
+.RI "\fI[opaque] A message that can be sent over a \fBchannel\fP\&. \fP"
 .in -1c
 .SS "Functions"
 

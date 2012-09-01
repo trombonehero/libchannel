@@ -1,8 +1,8 @@
-.TH "Libchannel-array" 3 "Thu Aug 30 2012" "libchannel" \" -*- nroff -*-
+.TH "libchannel-array" 3 "Sat Sep 1 2012" "libchannel" \" -*- nroff -*-
 .ad l
 .nh
 .SH NAME
-Libchannel-array \- 
+libchannel-array \- 
 .PP
 Something like type-safe bounded arrays in C\&.  
 
@@ -10,15 +10,11 @@ Something like type-safe bounded arrays in C\&.
 
 .in +1c
 .ti -1c
-.RI "#define \fBDEFINE_ARRAY_BASE\fP(tag, type)"
-.br
-.RI "\fIBase implementation of \fBDEFINE_ARRAY\fP and \fBDEFINE_STRUCT_ARRAY\fP\&. \fP"
-.ti -1c
-.RI "#define \fBDEFINE_ARRAY\fP(type)   \fBDEFINE_ARRAY_BASE\fP(type, type)"
+.RI "#define \fBDEFINE_ARRAY\fP(type)   DEFINE_ARRAY_BASE(type, type)"
 .br
 .RI "\fIDefine struct array_of_[type] and function [type]_array(data, num)\&. \fP"
 .ti -1c
-.RI "#define \fBDEFINE_STRUCT_ARRAY\fP(type)   \fBDEFINE_ARRAY_BASE\fP(type, struct type)"
+.RI "#define \fBDEFINE_STRUCT_ARRAY\fP(type)   DEFINE_ARRAY_BASE(type, struct type)"
 .br
 .RI "\fI\fBDEFINE_ARRAY\fP for structures\&. \fP"
 .in -1c
@@ -27,22 +23,6 @@ Something like type-safe bounded arrays in C\&.
 Something like type-safe bounded arrays in C\&. 
 
 
-.SH "Macro Definition Documentation"
-.PP 
-.SS "#define DEFINE_ARRAY_BASE(tag, type)"
-\fBValue:\fP
-.PP
-.nf
-struct array_of_##tag { type *data; size_t len; };                    \
-        inline array(tag) tag##_array(type *data, size_t len) {               \
-                array(tag) tmp = { data, len };                               \
-                return tmp;                                                   \
-        }
-.fi
-.PP
-Base implementation of \fBDEFINE_ARRAY\fP and \fBDEFINE_STRUCT_ARRAY\fP\&. 
-.PP
-Definition at line 51 of file libchannel-array\&.h\&.
 .SH "Author"
 .PP 
 Generated automatically by Doxygen for libchannel from the source code\&.

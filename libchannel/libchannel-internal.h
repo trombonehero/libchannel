@@ -36,10 +36,22 @@
 
 #include <stdbool.h>
 
+/*!
+ * \addtogroup libchannel libchannel
+ * @{
+ */
+
+/**
+ * @internal
+ * A channel "supertype" basically contains some function pointers.
+ *
+ * It is intended that "subclasses" will include a struct channel field
+ * (perhaps called 'super').
+ */
 typedef struct channel {
-	int     magic;
 	int     flags;
 	int     (*get_descriptor)(struct channel*);
+	int     magic;       //!< @internal @brief implementation-specific
 } channel;
 
 /**
@@ -54,10 +66,10 @@ typedef struct channel {
  *   channel   channels[channels.len]
  */
 typedef struct message {
-	size_t         total_len; //!< @internal @brief len(struct + referenced data)
-	array(char)    data;
-	array(int)     descriptors;
-	array(channel) channels;
+	size_t            total_len; //!< @internal @brief len(struct + data)
+	array(char)       data;
+	array(int)        descriptors;
+	array(channel)    channels;
 } message;
 
 
@@ -65,7 +77,7 @@ typedef struct message {
  * Several channel implementations follow.
  */
 
-/** @internal UNIX domain socket implementation of a channel. */
+/*! @internal @brief UNIX domain socket implementation of a channel. */
 typedef struct uds_channel {
 	channel     super;
 	int         socket;
@@ -77,6 +89,8 @@ uds_channel*        uds_create(int flags);
 channel*            uds_wrap(uds_channel*);
 uds_channel*        uds_unwrap(channel*);
 int                 uds_descriptor(channel*);
+
+//! @}
 
 #endif	/* !_LIBCHANNEL_INTERNAL_H_ */
 

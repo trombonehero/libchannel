@@ -1,4 +1,4 @@
-.TH "libchannel-array.h" 3 "Thu Aug 30 2012" "libchannel" \" -*- nroff -*-
+.TH "libchannel-array.h" 3 "Sat Sep 1 2012" "libchannel" \" -*- nroff -*-
 .ad l
 .nh
 .SH NAME
@@ -18,15 +18,11 @@ Something like bounded type-safe arrays in C\&.
 
 .in +1c
 .ti -1c
-.RI "#define \fBDEFINE_ARRAY_BASE\fP(tag, type)"
-.br
-.RI "\fIBase implementation of \fBDEFINE_ARRAY\fP and \fBDEFINE_STRUCT_ARRAY\fP\&. \fP"
-.ti -1c
-.RI "#define \fBDEFINE_ARRAY\fP(type)   \fBDEFINE_ARRAY_BASE\fP(type, type)"
+.RI "#define \fBDEFINE_ARRAY\fP(type)   DEFINE_ARRAY_BASE(type, type)"
 .br
 .RI "\fIDefine struct array_of_[type] and function [type]_array(data, num)\&. \fP"
 .ti -1c
-.RI "#define \fBDEFINE_STRUCT_ARRAY\fP(type)   \fBDEFINE_ARRAY_BASE\fP(type, struct type)"
+.RI "#define \fBDEFINE_STRUCT_ARRAY\fP(type)   DEFINE_ARRAY_BASE(type, struct type)"
 .br
 .RI "\fI\fBDEFINE_ARRAY\fP for structures\&. \fP"
 .in -1c

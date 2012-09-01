@@ -13,11 +13,10 @@ CSTD?=	c99
 
 INCDIR=		${.CURDIR}/../include
 
-# We need -rdynamic to be able to do RTLD introspection.
-CFLAGS+=	-Wall -Werror -I${INCDIR} -rdynamic
+CFLAGS+=	-Wall -Werror -I${INCDIR}
 LDFLAGS+=	-L../libchannel -lchannel
 
-all: ${PROG} run_tests
+all: ${PROG}
 run_tests:
 	sh ${.CURDIR}/test.t || exit 1
 

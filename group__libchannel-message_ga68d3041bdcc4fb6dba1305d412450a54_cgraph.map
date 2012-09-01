@@ -1,0 +1,6 @@
+<map id="message_append_channels" name="message_append_channels">
+<area shape="rect" id="node3" href="$group__libchannel.xhtml#ga5562e42d1df2a6aadd5da3ca47475727" title="channel_copy" alt="" coords="244,5,348,33"/>
+<area shape="rect" id="node7" href="$group__libchannel.xhtml#ga02f51b872a4fda6696d63edca2f1acab" title="How many bytes does a particular channel take to store?" alt="" coords="397,57,496,85"/>
+<area shape="rect" id="node11" href="$group__libchannel-message.xhtml#ga163914140b38e0a90eb87ab46011c2f3" title="Free a message, including any data it has copied." alt="" coords="243,109,349,137"/>
+<area shape="rect" id="node5" href="$group__libchannel.xhtml#ga39e73c5006a72b808c59705257af51dd" title="Tests the validity of a pointer that claims to be a channel." alt="" coords="544,31,656,59"/>
+</map>

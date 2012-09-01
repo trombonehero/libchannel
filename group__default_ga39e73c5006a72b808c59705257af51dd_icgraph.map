@@ -1,0 +1,5 @@
+<map id="channel_isvalid" name="channel_isvalid">
+<area shape="rect" id="node3" href="$group__default.xhtml#ga8b54fbb0498e7e2ce7df817bfea256b7" title="A file descriptor representation of a channel." alt="" coords="165,5,299,33"/>
+<area shape="rect" id="node5" href="$group__default.xhtml#gae6b1ccc4b055de0acdbc6823365e521d" title="Free a channel." alt="" coords="172,57,292,85"/>
+<area shape="rect" id="node7" href="$group__default.xhtml#ga6326a0c477f6297a16fcada2ce485001" title="Get a channel&#39;s flags." alt="" coords="180,109,284,137"/>
+</map>

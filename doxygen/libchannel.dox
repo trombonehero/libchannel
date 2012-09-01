@@ -1,7 +1,0 @@
-/** \mainpage
-
-libchannel provides an abstraction around communication channels like sockets.
-This allows a message-passing style of interaction, whether the backend is
-a socket or a function call in the same address space.
-
-*/

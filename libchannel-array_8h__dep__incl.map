@@ -1,0 +1,8 @@
+<map id="libchannel&#45;array.h" name="libchannel&#45;array.h">
+<area shape="rect" id="node3" href="$libchannel-message_8h.xhtml" title="Declaration of message." alt="" coords="128,83,279,111"/>
+<area shape="rect" id="node5" href="$libchannel_8h.xhtml" title="Public API for libchannel." alt="" coords="158,161,249,189"/>
+<area shape="rect" id="node7" href="$libchannel-internal_8h.xhtml" title="libchannel&#45;internal.h" alt="" coords="80,238,220,266"/>
+<area shape="rect" id="node9" href="$libchannel_8c.xhtml" title="Implementation of platform&#45;portable parts." alt="" coords="5,315,96,343"/>
+<area shape="rect" id="node11" href="$message_8c.xhtml" title="Implementation of the message abstraction." alt="" coords="136,315,221,343"/>
+<area shape="rect" id="node13" href="$uds_8c.xhtml" title="UNIX domain socket implementation." alt="" coords="275,315,327,343"/>
+</map>

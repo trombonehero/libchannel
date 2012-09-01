@@ -1,0 +1,5 @@
+<map id="libchannel&#45;internal.h" name="libchannel&#45;internal.h">
+<area shape="rect" id="node3" href="$libchannel_8c.xhtml" title="Implementation of platform&#45;portable parts." alt="" coords="5,83,96,111"/>
+<area shape="rect" id="node5" href="$message_8c.xhtml" title="Implementation of the message abstraction." alt="" coords="121,83,207,111"/>
+<area shape="rect" id="node7" href="$uds_8c.xhtml" title="UNIX domain socket implementation." alt="" coords="231,83,283,111"/>
+</map>
